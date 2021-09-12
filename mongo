@@ -1,0 +1,30 @@
+#!/bin/sh
+image=mongo
+name=mongo
+port=27017
+user=user
+pass=pass
+
+case "$1" in
+  start)
+    sudo docker run \
+      -d \
+      --name $name \
+      -p $port:$port \
+      -e MONGO_INITDB_ROOT_USERNAME=$user \
+      -e MONGO_INITDB_ROOT_PASSWORD=$pass \
+      $image
+    exit 0
+  ;;
+
+  stop)
+    sudo docker stop $name
+    sudo docker rm $name
+    exit 0
+  ;;
+
+  cli)
+    sudo docker exec -it $name sh -c "mongosh mongodb://$user:$pass@localhost:$port"
+    exit 0
+  ;;
+esac
