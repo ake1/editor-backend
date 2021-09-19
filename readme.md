@@ -1,5 +1,5 @@
 # editor backend
-rest api backed by a mongodb.
+rest api backed by a mongodb. [![Build Status](https://app.travis-ci.com/ake1/editor-backend.svg?branch=master)](https://app.travis-ci.com/ake1/editor-backend)
 
 ## install dependencies
 `yarn install`
