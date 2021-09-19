@@ -4,6 +4,7 @@ import { DatabaseException } from './util'
 
 export default async function getDb() {
   if (!config.dbUrl) throw new DatabaseException('bad DB_URL')
+  console.log('using DB_URL:', config.dbUrl)
   const client = new MongoClient(config.dbUrl)
   await client.connect()
   const db = client.db(config.dbName)

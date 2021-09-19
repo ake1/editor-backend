@@ -4,6 +4,11 @@ function config() {
   dotenv.config()
   const e = process.env
 
+  console.table({
+    NODE_ENV: e.NODE_ENV,
+    CI: e.CI,
+  })
+
   return {
     nodeEnv: e.NODE_ENV,
     port: e.PORT ?? 1234,
