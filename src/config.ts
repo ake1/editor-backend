@@ -3,7 +3,7 @@ import jsonConfig from '../config.json'
 const json: any = jsonConfig
 
 const config = {
-  prod: process.env.NODE_ENV,
+  nodeEnv: process.env.NODE_ENV,
   port: process.env.PORT ?? json.port ?? 1234,
   dbUrl: process.env.DB_URL ?? json.dbUrl,
   dbUser: process.env.DB_USER ?? json.dbUser ?? 'user',

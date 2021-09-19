@@ -10,7 +10,7 @@ async function query<R>(fn: (coll: Collection) => Promise<R>) {
     if (e instanceof Error) throw new DatabaseException(e)
     else throw new DatabaseException('Unknown error')
   } finally {
-    done()
+    await done()
   }
 }
 
@@ -25,6 +25,7 @@ interface Doc extends UnsavedDoc {
 
 export const listAll = () =>
   query((c) => c.find({}, { projection: { _id: 1, title: 1 } }).toArray())
+
 export const getOne = (id: string) =>
   query(async (c) => {
     const res = await c.findOne(
@@ -33,7 +34,9 @@ export const getOne = (id: string) =>
     )
     return res
   })
+
 export const createOne = (doc: UnsavedDoc) => query((c) => c.insertOne(doc))
+
 export const updateOne = (doc: Doc) =>
   query((c) =>
     c.updateOne(
@@ -46,5 +49,6 @@ export const updateOne = (doc: Doc) =>
       },
     ),
   )
+
 export const deleteOne = (id: string) =>
   query((c) => c.deleteOne({ _id: new ObjectId(id) }))

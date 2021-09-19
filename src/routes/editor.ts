@@ -4,13 +4,14 @@ import * as api from '../api'
 
 export default Router()
   .get('/', async (_req, res) => {
-    const list = await api.listAll()
-    res.send(list)
+    const docs = await api.listAll()
+    res.send(docs)
   })
-  .get('/:id', async (req, res) => {
+  .get('/:id', async (req, res, next) => {
     const id = req.params.id
-    const list = await api.getOne(id)
-    res.send(list)
+    const doc = await api.getOne(id)
+    if (!doc) next()
+    else res.send(doc)
   })
   .post('/', async (req, res) => {
     const doc = req.body

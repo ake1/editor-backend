@@ -14,6 +14,6 @@ export class DatabaseException extends Error {
   constructor(message?: string | Error) {
     if (message instanceof Error) super(message.message)
     else super(message)
-    Object.setPrototypeOf(this, HttpException.prototype)
+    Object.setPrototypeOf(this, DatabaseException.prototype)
   }
 }
