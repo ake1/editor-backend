@@ -1,19 +1,8 @@
 import { MongoClient } from 'mongodb'
 import config from './config'
 
-function getUrl() {
-  switch (config.nodeEnv) {
-    case 'production':
-      if (!config.dbUrl) throw Error('No valid db config')
-      return config.dbUrl
-    default:
-      return `mongodb://${config.dbUser}:${config.dbPass}@${config.dbHost}:${config.dbPort}`
-  }
-}
-
 export default async function getDb() {
-  const url = getUrl()
-  const client = new MongoClient(url)
+  const client = new MongoClient(config.dbUrl)
   await client.connect()
   const db = client.db(config.dbName)
   const collection = db.collection(config.dbCollectionName)

@@ -7,13 +7,10 @@ function config() {
   return {
     nodeEnv: e.NODE_ENV,
     port: e.PORT ?? 1234,
-    dbUrl: e.DB_URL,
-    dbUser: e.DB_USER ?? 'user',
-    dbPass: e.DB_PASS ?? 'pass',
-    dbHost: e.DB_HOST ?? 'localhost',
-    dbPort: e.DB_PORT ?? 27017,
+    dbUrl: e.DB_URL ?? `mongodb://user:pass@localhost:27017`,
     dbName: e.DB_NAME ?? 'editor',
     dbCollectionName: e.DB_COLL_NAME ?? 'documents',
+    ci: !!e.CI ?? false,
   }
 }
 
