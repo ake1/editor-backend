@@ -1,18 +1,20 @@
-import jsonConfig from '../config.json'
+import dotenv from 'dotenv'
 
-const json: any = jsonConfig
+function config() {
+  dotenv.config()
+  const e = process.env
 
-const config = {
-  nodeEnv: process.env.NODE_ENV,
-  port: process.env.PORT ?? json.port ?? 1234,
-  dbUrl: process.env.DB_URL ?? json.dbUrl,
-  dbUser: process.env.DB_USER ?? json.dbUser ?? 'user',
-  dbPass: process.env.DB_PASS ?? json.dbPass ?? 'pass',
-  dbHost: process.env.DB_HOST ?? json.dbHost ?? 'localhost',
-  dbPort: process.env.DB_PORT ?? json.dbPort ?? 27017,
-  dbName: process.env.DB_NAME ?? json.dbName ?? 'editor',
-  dbCollectionName:
-    process.env.DB_COLL_NAME ?? json.dbCollectionName ?? 'documents',
+  return {
+    nodeEnv: e.NODE_ENV,
+    port: e.PORT ?? 1234,
+    dbUrl: e.DB_URL,
+    dbUser: e.DB_USER ?? 'user',
+    dbPass: e.DB_PASS ?? 'pass',
+    dbHost: e.DB_HOST ?? 'localhost',
+    dbPort: e.DB_PORT ?? 27017,
+    dbName: e.DB_NAME ?? 'editor',
+    dbCollectionName: e.DB_COLL_NAME ?? 'documents',
+  }
 }
 
-export default config
+export default config()

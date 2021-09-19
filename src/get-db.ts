@@ -4,6 +4,7 @@ import config from './config'
 function getUrl() {
   switch (config.nodeEnv) {
     case 'production':
+      if (!config.dbUrl) throw Error('No valid db config')
       return config.dbUrl
     default:
       return `mongodb://${config.dbUser}:${config.dbPass}@${config.dbHost}:${config.dbPort}`
