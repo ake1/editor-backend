@@ -2,9 +2,10 @@
   "scripts": {
     "start": "NODE_ENV=\"production\" node dist/src/main.js",
     "build": "tsc",
-    "test": "jest",
-    "test:cov": "jest --coverage",
+    "test": "jest --coverage",
+    "pretest": "yarn fmt && yarn lint",
     "fmt": "prettier --write src",
+    "fmt:check": "prettier --check src",
     "lint": "eslint -c .eslintrc.js src/**/*.ts",
     "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/main.ts"
   },
