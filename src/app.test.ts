@@ -60,7 +60,11 @@ describe('/editor', () => {
       await supertest(app)
         .get(endpoint + `/${id}`)
         .expect(200)
-        .then(({ body }) => expect(body).toEqual({ ...doc, _id: id }))
+        .then(({ body }) => {
+          expect(body._id).toEqual(id)
+          expect(body.title).toEqual(doc.title)
+          expect(body.content).toEqual(doc.content)
+        })
     })
 
     it('changes title and content of document', async () => {
@@ -75,11 +79,9 @@ describe('/editor', () => {
         .get(endpoint + `/${id}`)
         .expect(200)
         .then(({ body }) => {
-          expect(body).toEqual({
-            _id: id,
-            title: 'not_foo',
-            content: 'not_bar',
-          })
+          expect(body._id).toEqual(id)
+          expect(body.title).toEqual('not_foo')
+          expect(body.content).toEqual('not_bar')
         })
     })
 

@@ -1,5 +1,6 @@
-import { ObjectId, Collection } from 'mongodb'
+import { Collection, ObjectId } from 'mongodb'
 import getDb from './get-db'
+import { SavedDoc, UnsavedDoc } from './types'
 import { DatabaseException } from './util'
 
 async function query<R>(fn: (coll: Collection) => Promise<R>) {
@@ -14,15 +15,6 @@ async function query<R>(fn: (coll: Collection) => Promise<R>) {
   }
 }
 
-interface UnsavedDoc {
-  title: string
-  content: string
-}
-
-interface Doc extends UnsavedDoc {
-  _id?: string
-}
-
 export const listAll = () =>
   query((c) => c.find({}, { projection: { _id: 1, title: 1 } }).toArray())
 
@@ -32,12 +24,13 @@ export const getOne = (id: string) =>
       { _id: new ObjectId(id) },
       { projection: { _id: 1, title: 1, content: 1 } },
     )
+    if (res && !res.updated) res.updated = Date.now()
     return res
   })
 
 export const createOne = (doc: UnsavedDoc) => query((c) => c.insertOne(doc))
 
-export const updateOne = (doc: Doc) =>
+export const updateOne = (doc: SavedDoc) =>
   query((c) =>
     c.updateOne(
       { _id: new ObjectId(doc._id) },

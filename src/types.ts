@@ -1,13 +1,22 @@
+export interface DocMeta {
+  _id: string
+  title: string
+}
+
 export interface UnsavedDoc {
   title: string
   content: string
 }
 
-export interface Doc extends UnsavedDoc {
+export interface SavedDoc extends UnsavedDoc {
+  _id: string
+  updated: number
+}
+
+export interface SomeDoc extends UnsavedDoc {
   _id?: string
 }
 
-export interface MetaDoc {
-  _id: string
-  title: string
+export function isSaved(doc: SomeDoc): doc is SavedDoc {
+  return !!doc._id
 }
