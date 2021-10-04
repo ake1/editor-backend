@@ -1,6 +1,6 @@
 import { ErrorRequestHandler, RequestHandler } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { DatabaseException, HttpException } from '../util'
+import { DatabaseException, HttpException } from '../util/exceptions'
 
 export const notFound: RequestHandler = (_req, _res, next) => {
   next(new HttpException(StatusCodes.NOT_FOUND))

@@ -1,4 +1,4 @@
-import { DatabaseException, HttpException } from './util'
+import { DatabaseException, HttpException } from './exceptions'
 
 describe('HttpException', () => {
   it('has the correct prototype', () => {
