@@ -13,6 +13,7 @@ function config() {
         : e.DB_URL,
     dbName: e.DB_NAME ?? 'editor',
     dbCollectionName: e.DB_COLL_NAME ?? 'documents',
+    dbUserCollection: e.DB_COLL_NAME_USERS ?? 'users',
     ci: !!e.CI ?? false,
   }
 }

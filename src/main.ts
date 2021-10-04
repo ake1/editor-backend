@@ -16,5 +16,5 @@ const io = new Server(server, {
 setupSocket(io)
 
 server.listen(config.port, () =>
-  console.info(`listening on port ${config.port}`),
+  console.info(`listening on port ${config.port} with env ${config.nodeEnv}`),
 )
