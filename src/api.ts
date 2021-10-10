@@ -1,6 +1,6 @@
-import { Collection, ObjectId, WithId, WithoutId } from 'mongodb'
+import { Collection, ObjectId } from 'mongodb'
 import getDb from './get-db'
-import { SavedDoc, UnsavedDoc, User } from './types'
+import { SavedDoc, UnsavedDoc, User, WithId } from './types'
 import { DatabaseException } from './util/exceptions'
 
 async function queryDocs<R>(fn: (coll: Collection<SavedDoc>) => Promise<R>) {
@@ -15,7 +15,9 @@ async function queryDocs<R>(fn: (coll: Collection<SavedDoc>) => Promise<R>) {
   }
 }
 
-async function queryUsers<R>(fn: (coll: Collection<User>) => Promise<R>) {
+async function queryUsers<R>(
+  fn: (coll: Collection<WithId<User>>) => Promise<R>,
+) {
   const { users, done } = await getDb()
   try {
     return await fn(users)
@@ -73,16 +75,25 @@ export const listUsers = () =>
   )
 
 export const getUserByUsername = (username: string) =>
-  queryUsers<User>(async (c: Collection<User>) => {
+  queryUsers(async (c) => {
     const res = await c.findOne(
       { username },
       { projection: { _id: 1, username: 1, hash: 1 } },
     )
-    return res as WithId<User>
+    return res
   })
 
-export const createUser = (user: WithoutId<User>) =>
-  queryUsers((c) => c.insertOne(user as User))
+export const getUserById = (id: string) =>
+  queryUsers(async (c) => {
+    const res = await c.findOne(
+      { _id: new ObjectId(id) },
+      { projection: { _id: 1, username: 1, hash: 1 } },
+    )
+    return res
+  })
+
+export const createUser = (user: User) =>
+  queryUsers((c) => c.insertOne(user as WithId<User>))
 
 export const updateUser = (user: WithId<User>) =>
   queryUsers((c) =>

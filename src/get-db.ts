@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 import config from './config'
-import { SavedDoc, User } from './types'
+import { SavedDoc, User, WithId } from './types'
 import { DatabaseException } from './util/exceptions'
 
 export default async function getDb() {
@@ -9,7 +9,7 @@ export default async function getDb() {
   await client.connect()
   const db = client.db(config.dbName)
   const documents = db.collection<SavedDoc>(config.dbCollectionName)
-  const users = db.collection<User>(config.dbUserCollection)
+  const users = db.collection<WithId<User>>(config.dbUserCollection)
 
   const done = async () => await client.close()
   const drop = async () => {

@@ -9,6 +9,7 @@ import setupPassport from './passport'
 import admin from './routes/admin'
 import auth from './routes/auth'
 import editor from './routes/editor'
+import graphql from './routes/graphql'
 import root from './routes/root'
 import user from './routes/user'
 
@@ -29,6 +30,7 @@ app.use(auth)
 app.use('/admin', admin)
 app.use('/user', user)
 app.use('/editor', authenticated, editor)
+app.use('/graphql', graphql)
 
 app.use(notFound)
 app.use(wrapError)

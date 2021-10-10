@@ -1,3 +1,5 @@
+export type WithId<T> = T & { _id: string }
+
 export interface User {
   username: string
   hash: string
