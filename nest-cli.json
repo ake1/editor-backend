@@ -1,0 +1,39 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/editor/src",
+  "monorepo": true,
+  "root": "apps/editor",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/editor/tsconfig.app.json"
+  },
+  "projects": {
+    "editor": {
+      "type": "application",
+      "root": "apps/editor",
+      "entryFile": "main",
+      "sourceRoot": "apps/editor/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/editor/tsconfig.app.json"
+      }
+    },
+    "pdf": {
+      "type": "application",
+      "root": "apps/pdf",
+      "entryFile": "main",
+      "sourceRoot": "apps/pdf/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/pdf/tsconfig.app.json"
+      }
+    },
+    "execjs": {
+      "type": "application",
+      "root": "apps/execjs",
+      "entryFile": "main",
+      "sourceRoot": "apps/execjs/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/execjs/tsconfig.app.json"
+      }
+    }
+  }
+}
